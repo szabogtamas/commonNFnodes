@@ -1,4 +1,6 @@
-class alignSingleEndReadsWithStar(nextflowCmdProcess):
+from . import nextflowCmdProcess
+
+class countWithFeatureCounts(nextflowCmdProcess):
     "Count reads with FeatureCounts, using general settings."
 
     def customize_features(self):
