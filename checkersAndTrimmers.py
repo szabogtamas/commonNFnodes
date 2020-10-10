@@ -47,7 +47,7 @@ class rnaBulkTrimmomaticPE(nextflowProcess):
             "tuple raw, sample from insamples",
         ]
         self.outputs = [
-            'tuple sraId, "${sample}_trim_1.fastq", "${sample}_trim_2.fastq" into trimmedFastq'
+            'tuple sample, "${sample}_trim_1.fastq", "${sample}_trim_2.fastq" into trimmedFastq'
         ]
         self.command = "trimmomatic PE ${indir}/${sample}_1.fastq ${indir}/${sample}_2.fastq \\ \n            "
         self.command += (
