@@ -8,8 +8,8 @@ class rnaBulkTrimmomaticSE(nextflowCmdProcess):
         return [
             [
                 "Channel",
-                ".from([params.raw_fastqs, params.sample_ids].transpose())",
-                ".set{insamples}",
+                "from([params.raw_fastqs, params.sample_ids].transpose())",
+                "set{insamples}",
             ],
         ]
 
@@ -35,8 +35,8 @@ class rnaBulkTrimmomaticPE(nextflowCmdProcess):
         return [
             [
                 "Channel",
-                ".from([params.raw_fastqs, params.sample_ids].transpose())",
-                ".set{insamples}",
+                "from([params.raw_fastqs, params.sample_ids].transpose())",
+                "set{insamples}",
             ],
         ]
 
