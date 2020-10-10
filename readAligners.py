@@ -1,4 +1,4 @@
-class alignSingleEndReadsWithStar(nextflowProcess):
+class alignSingleEndReadsWithStar(nextflowCmdProcess):
     "Use STAR to align single end reads with general settings."
 
     def customize_features(self):
@@ -18,11 +18,7 @@ class alignSingleEndReadsWithStar(nextflowProcess):
         self.manualDoc = self.__doc__
         return None
 
-    def compile_command(self):
-        return self.command
-
-
-class alignPairedEndReadsWithStar(nextflowProcess):
+class alignPairedEndReadsWithStar(nextflowCmdProcess):
     "Use STAR to align paired end reads with general settings."
 
     def customize_features(self):
@@ -41,6 +37,3 @@ class alignPairedEndReadsWithStar(nextflowProcess):
 
         self.manualDoc = self.__doc__
         return None
-
-    def compile_command(self):
-        return self.command

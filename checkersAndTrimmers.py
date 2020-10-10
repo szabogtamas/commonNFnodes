@@ -1,4 +1,4 @@
-class rnaBulkTrimmomaticSE(nextflowProcess):
+class rnaBulkTrimmomaticSE(nextflowCmdProcess):
     "Trim Single End reads with Trimmomatic."
 
     def channel_pretreat(self):
@@ -24,11 +24,8 @@ class rnaBulkTrimmomaticSE(nextflowProcess):
         self.manualDoc = self.__doc__
         return None
 
-    def compile_command(self):
-        return self.command
 
-
-class rnaBulkTrimmomaticPE(nextflowProcess):
+class rnaBulkTrimmomaticPE(nextflowCmdProcess):
     "Trim Paired End reads with Trimmomatic."
 
     def channel_pretreat(self):
@@ -60,6 +57,3 @@ class rnaBulkTrimmomaticPE(nextflowProcess):
 
         self.manualDoc = self.__doc__
         return None
-
-    def compile_command(self):
-        return self.command
