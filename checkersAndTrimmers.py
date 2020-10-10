@@ -1,40 +1,65 @@
 class rnaBulkTrimmomaticSE(nextflowProcess):
+    "Trim Single End reads with Trimmomatic."
+
+    def channel_pretreat(self):
+        return [
+            [
+                "Channel",
+                ".from([params.raw_fastqs, params.sample_ids].transpose())",
+                ".set{insamples}",
+            ],
+        ]
 
     def customize_features(self):
-        self.manualDoc = "Trimm reads with Trimmomatic.\n"
         self.inputs = [
-            "file raw from params.raw_fastqs",
+            "val adapterFileIllumina from params.adapterFileIllumina",
+            "val indir from params.input_folder",
+            "tuple raw, sample from insamples",
         ]
-        self.outputs = [
-            "tuple sraId, "${sraId}_trim_1.fastq", "${sraId}_trim_2.fastq" into trimmedFastq"
-        ]
-        self.command = "trimmomatic SE ${indir}/${sraId}_1.fastq ${indir}/${sraId}_2.fastq \\ \n            "
-        self.command += "${sraId}_trim_1.fastq tr_u1.fastq \\ \n            "
-        self.command += "${sraId}_trim_2.fastq tr_u2.fastq \\ \n            "
-        self.command += "ILLUMINACLIP:$adapterFileIllumina:2:30:10:8:keepBothReads LEADING:3 TRAILING:3 MINLEN:36 \\\n            "
-        
+        self.outputs = ['tuple sample, "${sample}_trimed.fastq" into trimmed_fastqs']
+        self.command = "trimmomatic SE ${indir}/${raw}\\\n            "
+        self.command += "${sample}_trimed.fastq\\\n            "
+        self.command += "ILLUMINACLIP:${adapterFileIllumina}:2:30:10 LEADING:3 TRAILING:3 MINLEN:36\\\n"
+
+        self.manualDoc = self.__doc__
         return None
-    
+
     def compile_command(self):
         return self.command
 
+
 class rnaBulkTrimmomaticPE(nextflowProcess):
+    "Trim Paired End reads with Trimmomatic."
+
+    def channel_pretreat(self):
+        return [
+            [
+                "Channel",
+                ".from([params.raw_fastqs, params.sample_ids].transpose())",
+                ".set{insamples}",
+            ],
+        ]
 
     def customize_features(self):
-        self.manualDoc = "Trimm reads with Trimmomatic.\n"
         self.inputs = [
-            "val indir from params.indir",
-            "val adapterFileIllumina from params.adapterFileIllumina"
+            "val adapterFileIllumina from params.adapterFileIllumina",
+            "val indir from params.input_folder",
+            "tuple raw, sample from insamples",
         ]
         self.outputs = [
-            "tuple sraId, "${sraId}_trim_1.fastq", "${sraId}_trim_2.fastq" into trimmedFastq"
+            'tuple sraId, "${sample}_trim_1.fastq", "${sample}_trim_2.fastq" into trimmedFastq'
         ]
-        self.command = "trimmomatic PE ${indir}/${sraId}_1.fastq ${indir}/${sraId}_2.fastq \\ \n            "
-        self.command += "${sraId}_trim_1.fastq tr_u1.fastq \\ \n            "
-        self.command += "${sraId}_trim_2.fastq tr_u2.fastq \\ \n            "
+        self.command = "trimmomatic PE ${indir}/${sample}_1.fastq ${indir}/${sample}_2.fastq \\ \n            "
+        self.command += (
+            "${sample}_trim_1.fastq ${sample}_forward_unpaired.fastq \\ \n            "
+        )
+        self.command += (
+            "${sample}_trim_2.fastq ${sample}_reverse_unpaired.fastq \\ \n            "
+        )
         self.command += "ILLUMINACLIP:$adapterFileIllumina:2:30:10:8:keepBothReads LEADING:3 TRAILING:3 MINLEN:36 \\\n            "
-        
+
+        self.manualDoc = self.__doc__
         return None
-    
+
     def compile_command(self):
         return self.command
