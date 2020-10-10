@@ -1,5 +1,6 @@
 from . import nextflowCmdProcess
 
+
 class countWithFeatureCounts(nextflowCmdProcess):
     "Count reads with FeatureCounts, using general settings."
 

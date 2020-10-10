@@ -1,5 +1,6 @@
 from . import nextflowCmdProcess
 
+
 class rnaBulkTrimmomaticSE(nextflowCmdProcess):
     "Trim Single End reads with Trimmomatic."
 

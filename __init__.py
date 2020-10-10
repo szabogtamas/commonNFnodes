@@ -11,9 +11,11 @@ sys.path.append(os.path.dirname(homefolder))
 
 import introSpect
 
+
 class nextflowCmdProcess(introSpect.flowNodes.nextflowProcess):
     def compile_command(self):
         return self.command
+
 
 for module in os.listdir(homefolder):
     if module == "__init__.py" or module[-3:] != ".py":

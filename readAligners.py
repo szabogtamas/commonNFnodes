@@ -1,5 +1,6 @@
 from . import nextflowCmdProcess
 
+
 class alignSingleEndReadsWithStar(nextflowCmdProcess):
     "Use STAR to align single end reads with general settings."
 
