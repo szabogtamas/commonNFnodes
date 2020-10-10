@@ -14,3 +14,8 @@ for module in os.listdir(homefolder):
     __import__(module[:-3], globals(), locals(), level=1)
 
 del module
+
+
+class nextflowCmdProcess(nextflowProcess):
+    def compile_command(self):
+        return self.command

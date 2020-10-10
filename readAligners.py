@@ -18,6 +18,7 @@ class alignSingleEndReadsWithStar(nextflowCmdProcess):
         self.manualDoc = self.__doc__
         return None
 
+
 class alignPairedEndReadsWithStar(nextflowCmdProcess):
     "Use STAR to align paired end reads with general settings."
 
