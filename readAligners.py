@@ -4,6 +4,9 @@ from . import nextflowCmdProcess
 class alignSingleEndReadsWithStar(nextflowCmdProcess):
     "Use STAR to align single end reads with general settings."
 
+    def directives(self):
+        return {"label": "manycpu"}
+
     def customize_features(self):
         self.inputs = [
             "val manycpu from params.manycpu",
@@ -24,6 +27,9 @@ class alignSingleEndReadsWithStar(nextflowCmdProcess):
 
 class alignPairedEndReadsWithStar(nextflowCmdProcess):
     "Use STAR to align paired end reads with general settings."
+
+    def directives(self):
+        return {"label": "manycpu"}
 
     def customize_features(self):
         self.inputs = [

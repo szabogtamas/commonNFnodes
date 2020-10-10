@@ -4,6 +4,9 @@ from . import nextflowCmdProcess
 class countWithFeatureCounts(nextflowCmdProcess):
     "Count reads with FeatureCounts, using general settings."
 
+    def directives(self):
+        return {"publishDir": "'../tables', mode: 'copy'", "label": "manycpu"}
+
     def customize_features(self):
         self.inputs = [
             "val manycpu from params.manycpu",
