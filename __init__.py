@@ -15,7 +15,10 @@ for module in os.listdir(homefolder):
 
 del module
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
-class nextflowCmdProcess(nextflowProcess):
+import introSpect
+
+class nextflowCmdProcess(introSpect.FlowNodes.nextflowProcess):
     def compile_command(self):
         return self.command
