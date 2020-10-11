@@ -17,7 +17,7 @@ class countWithFeatureCounts(nextflowCmdProcess):
         self.command = "featureCounts -T $manycpu\\\n            "
         self.command += "-a $genomeannotation\\\n            "
         self.command += "-o counts.tsv\\\n            "
-        self.command += "-${alignedSams.join(' ')}\\\n"
+        self.command += "${alignedSams.join(' ')}\\\n"
 
         self.manualDoc = self.__doc__
         return None
