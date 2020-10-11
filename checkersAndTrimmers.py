@@ -5,7 +5,7 @@ class rnaBulkTrimmomaticSE(nextflowCmdProcess):
     "Trim Single End reads with Trimmomatic."
 
     def directives(self):
-        return {"label": "manycpu"}
+        return {"label": "'manycpu'"}
 
     def channel_pretreat(self):
         return [
@@ -37,7 +37,7 @@ class rnaBulkTrimmomaticPE(nextflowCmdProcess):
     "Trim Paired End reads with Trimmomatic."
 
     def directives(self):
-        return {"label": "manycpu"}
+        return {"label": "'manycpu'"}
 
     def channel_pretreat(self):
         return [
