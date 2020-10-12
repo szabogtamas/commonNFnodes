@@ -26,7 +26,6 @@ class rnaBulkTrimmomaticSE(nextflowCmdProcess):
         self.command += "ILLUMINACLIP:${adapterFileIllumina}:2:30:10 LEADING:3 TRAILING:3 MINLEN:36\\\n            "
         self.command += "-threads $manycpu\n"
 
-        self.process_settings = dict(cpus="params.manycpu")
         return None
 
 
