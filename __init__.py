@@ -13,6 +13,9 @@ import introSpect
 
 
 class nextflowCmdProcess(introSpect.flowNodes.nextflowProcess):
+    def directives(self):
+        return {"label": "'manycpu'"}
+
     def compile_command(self):
         return self.command
 

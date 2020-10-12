@@ -4,9 +4,6 @@ from . import nextflowCmdProcess
 class rnaBulkTrimmomaticSE(nextflowCmdProcess):
     "Trim Single End reads with Trimmomatic."
 
-    def directives(self):
-        return {"label": "'manycpu'"}
-
     def channel_pretreat(self):
         return [
             [
@@ -29,17 +26,12 @@ class rnaBulkTrimmomaticSE(nextflowCmdProcess):
         self.command += "ILLUMINACLIP:${adapterFileIllumina}:2:30:10 LEADING:3 TRAILING:3 MINLEN:36\\\n            "
         self.command += "-threads $manycpu\n"
 
-        self.process_settings = dict(cpus = "params.manycpu")
-
-        self.manualDoc = self.__doc__
+        self.process_settings = dict(cpus="params.manycpu")
         return None
 
 
 class rnaBulkTrimmomaticPE(nextflowCmdProcess):
     "Trim Paired End reads with Trimmomatic."
-
-    def directives(self):
-        return {"label": "'manycpu'"}
 
     def channel_pretreat(self):
         return [
@@ -69,6 +61,4 @@ class rnaBulkTrimmomaticPE(nextflowCmdProcess):
         )
         self.command += "ILLUMINACLIP:$adapterFileIllumina:2:30:10:8:keepBothReads LEADING:3 TRAILING:3 MINLEN:36\\\n            "
         self.command += "-threads $manycpu\n"
-
-        self.manualDoc = self.__doc__
         return None
