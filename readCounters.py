@@ -14,7 +14,7 @@ class countWithFeatureCounts(nextflowCmdProcess):
             "val genomeannotation from params.genomeannotation",
             "file alignedSams from aligned.collect()",
         ]
-        self.outputs = ["file 'counts.tsv'"]
+        self.outputs = ["file 'counts.tsv' into count_file"]
         self.command = "featureCounts -T $manycpu\\\n            "
         self.command += "-a $genomeannotation\\\n            "
         self.command += "-o $count_file\\\n            "
