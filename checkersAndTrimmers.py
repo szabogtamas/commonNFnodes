@@ -1,4 +1,4 @@
-from . import nextflowCmdProcess
+from .nodePrototypes import nextflowCmdProcess
 
 
 class rnaBulkTrimmomaticSE(nextflowCmdProcess):
