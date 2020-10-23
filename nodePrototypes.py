@@ -20,11 +20,11 @@ class nextflowRscriptProcess(nextflowCmdProcess):
         self.params = {v[2]: v[1] for k, v in self.channel_specifications().items()}
         self.cmdpars = None
         self.cmdouts = dict()
-        for r_script in self.dependencies["inhouse_packages"]:
+        command = self.command
+        deps = self.dependencies()
+        for r_script in deps["inhouse_packages"]:
             subprocess.call(["cp", r_script, dr + "/bin/" + os.path.basename(r_script)])
-        subprocess.call(
-            ["cp", self.command, dr + "/bin/" + os.path.basename(self.command)]
-        )
+        subprocess.call(["cp", command, dr + "/bin/" + os.path.basename(command)])
 
     def compile_command(self):
         return (
