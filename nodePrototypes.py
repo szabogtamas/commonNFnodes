@@ -25,11 +25,12 @@ class nextflowRscriptProcess(nextflowCmdProcess):
         for r_script in deps["inhouse_packages"]:
             subprocess.call(["cp", r_script, dr + "/bin/" + os.path.basename(r_script)])
         subprocess.call(["cp", command, dr + "/bin/" + os.path.basename(command)])
+        self.command = dr + "/bin/" + os.path.basename(command)
 
     def compile_command(self):
         return (
-            "Rscript bin/"
-            + os.path.basename(self.command)
+            "Rscript "
+            + self.command
             + "\\\n            "
             + "\\\n            ".join(self.flags)
             + "\n"
