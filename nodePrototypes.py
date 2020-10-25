@@ -32,6 +32,6 @@ class nextflowRscriptProcess(nextflowCmdProcess):
             "Rscript "
             + self.command
             + "\\\n            "
-            + "\\\n            ".join(self.flags)
+            + "\\\n            ".join(["" if flag is None else flag for flag in self.flags])
             + "\n"
         )
