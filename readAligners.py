@@ -35,5 +35,5 @@ class alignPairedEndReadsWithStar(nextflowCmdProcess):
         self.command += "--runThreadN $manycpu\\\n            "
         self.command += "--genomeDir $genomedir\\\n            "
         self.command += "--outFileNamePrefix ${sample}_\\\n            "
-        self.command += "readFilesIn ${sample}_trim_1.fastq ${sample}_trim_2.fastq\\\n"
+        self.command += "--readFilesIn ${sample}_trim_1.fastq ${sample}_trim_2.fastq\\\n"
         return None
