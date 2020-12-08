@@ -27,7 +27,7 @@ class alignPairedEndReadsWithStar(nextflowCmdProcess):
         self.inputs = [
             "val manycpu from params.manycpu",
             "val genomedir from params.genomedir",
-            'tuple sample, "${sample}_trim_1.fastq", "${sample}_trim_2.fastq" into trimmedFastqs',
+            'tuple sample, "${sample}_trim_1.fastq", "${sample}_trim_2.fastq" from trimmed_fastqs',
         ]
         self.outputs = ['file "${sample}_Aligned.out.sam" into aligned']
         self.command = "STAR --runMode alignReads\\\n            "
