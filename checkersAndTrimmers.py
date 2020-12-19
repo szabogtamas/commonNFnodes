@@ -61,3 +61,27 @@ class rnaBulkTrimmomaticPE(nextflowCmdProcess):
         self.command += "ILLUMINACLIP:$adapterFileIllumina:2:30:10:8:keepBothReads LEADING:3 TRAILING:3 MINLEN:36\\\n            "
         self.command += "-threads $manycpu\n"
         return None
+
+
+class rnaBulkSRATrimmomaticPE(nextflowCmdProcess):
+    "Trim Paired End reads with Trimmomatic."
+
+    def customize_features(self):
+        self.inputs = [
+            "val adapterFileIllumina from params.adapterFileIllumina",
+            "val manycpu from params.manycpu",
+            "tuple forward, reverse, sample from insamples",
+        ]
+        self.outputs = [
+            'tuple sample, "${sample}_trim_1.fastq", "${sample}_trim_2.fastq" into trimmed_fastqs'
+        ]
+        self.command = "trimmomatic PE $forward $reverse\\\n            "
+        self.command += (
+            "${sample}_trim_1.fastq ${sample}_forward_unpaired.fastq\\\n            "
+        )
+        self.command += (
+            "${sample}_trim_2.fastq ${sample}_reverse_unpaired.fastq\\\n            "
+        )
+        self.command += "ILLUMINACLIP:$adapterFileIllumina:2:30:10:8:keepBothReads LEADING:3 TRAILING:3 MINLEN:36\\\n            "
+        self.command += "-threads $manycpu\n"
+        return None
