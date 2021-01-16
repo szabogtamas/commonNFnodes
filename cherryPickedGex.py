@@ -75,7 +75,9 @@ def show_expression_of_KO_genes(
         norm_df = norm_df.set_index(["GeneID", "Symbol"])
         norm_df = norm_df.rank(axis=0, pct=True, numeric_only=True)
         norm_df = norm_df.reset_index()
-    norm_df["Symbol"] = norm_df["Symbol"].apply(lambda x: ko_dict[x] if x in ko_dict else x)
+    norm_df["Symbol"] = norm_df["Symbol"].apply(
+        lambda x: ko_dict[x] if x in ko_dict else x
+    )
     ko_df = norm_df.loc[norm_df["Symbol"].isin(ko_list), :]
     fig, ax = plt.subplots(figsize=(7.2, 3.6))
     if heat:
@@ -290,7 +292,11 @@ class changeInKOs(nextflowProcess):
         dtd = dict()
         for e in de_tabs:
             tag, pth = e.split(":")
-            df = pd.read_csv(pth, sep="\t").set_index("Symbol")
+            df = pd.read_csv(pth, sep="\t").reset_index()
+            df["Symbol"] = df["Symbol"].apply(
+                lambda x: ko_dict[x] if x in ko_dict else x
+            )
+            df = df.set_index("Symbol")
             df = df["logFC"]
             if percentile:
                 df = df.rank(pct=True, numeric_only=True)
@@ -298,9 +304,6 @@ class changeInKOs(nextflowProcess):
         if order_of_conditions is None:
             order_of_conditions = list(dtd.keys())
         ko_df = pd.DataFrame(dtd).reset_index()
-        ko_df["Symbol"] = ko_df["Symbol"].apply(
-            lambda x: ko_dict[x] if x in ko_dict else x
-        )
         ko_df = ko_df.melt(id_vars=["Symbol"])
         fig, ax = plt.subplots(figsize=(7.2, 3.6))
         if percentile:
