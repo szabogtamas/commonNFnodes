@@ -3,12 +3,6 @@ from .nodePrototypes import introSpect
 
 chs = introSpect.flowNodes.createChannelSpecification
 rcaller_script = "commandR.r"
-edger_script = "base_edger.r"
-progeny_script = "progeny_paths.r"
-hitlist_script = "hitlist_ontologies.r"
-gsea_script = "gsea_ontologies.r"
-positional_script = "positional_effect.r"
-pathview_script = "kegg_pathview.r"
 
 
 class getDEwithEdgeR(nextflowRscriptProcess):
@@ -75,10 +69,9 @@ class getDEwithEdgeR(nextflowRscriptProcess):
         }
 
     def customize_features(self):
-        node_params = dict(rcaller_script=rcaller_script, edger_script=edger_script)
+        node_params = dict(rcaller_script=rcaller_script)
         node_params.update(self.node_params)
         self.rcaller_script = node_params["rcaller_script"]
-        self.command = node_params["edger_script"]
         return
 
 
@@ -144,13 +137,9 @@ class pathwayActivityProgeny(nextflowRscriptProcess):
         }
 
     def customize_features(self):
-        node_params = dict(
-            rcaller_script=rcaller_script,
-            progeny_script=progeny_script,
-        )
+        node_params = dict(rcaller_script=rcaller_script)
         node_params.update(self.node_params)
         self.rcaller_script = node_params["rcaller_script"]
-        self.command = node_params["progeny_script"]
         return
 
 
@@ -235,13 +224,9 @@ class visualiseOntologiesForHitlists(nextflowRscriptProcess):
         }
 
     def customize_features(self):
-        node_params = dict(
-            rcaller_script=rcaller_script,
-            hitlist_script=hitlist_script,
-        )
+        node_params = dict(rcaller_script=rcaller_script)
         node_params.update(self.node_params)
         self.rcaller_script = node_params["rcaller_script"]
-        self.command = node_params["hitlist_script"]
         return
 
 
@@ -323,13 +308,9 @@ class visualiseGseaGeneSets(nextflowRscriptProcess):
         }
 
     def customize_features(self):
-        node_params = dict(
-            rcaller_script=rcaller_script,
-            gsea_script=gsea_script,
-        )
+        node_params = dict(rcaller_script=rcaller_script)
         node_params.update(self.node_params)
         self.rcaller_script = node_params["rcaller_script"]
-        self.command = node_params["gsea_script"]
         return
 
 
@@ -404,15 +385,9 @@ class visualisePositionalOverrep(nextflowRscriptProcess):
         }
 
     def customize_features(self):
-        node_params = dict(
-            rcaller_script=rcaller_script,
-            gsea_script=gsea_script,
-            positional_script=positional_script,
-        )
+        node_params = dict(rcaller_script=rcaller_script)
         node_params.update(self.node_params)
         self.rcaller_script = node_params["rcaller_script"]
-        self.gsea_script = node_params["gsea_script"]
-        self.command = node_params["positional_script"]
         return
 
 
@@ -479,10 +454,7 @@ class drawPathViews(nextflowRscriptProcess):
         }
 
     def customize_features(self):
-        node_params = dict(
-            rcaller_script=rcaller_script, pathview_script=pathview_script
-        )
+        node_params = dict(rcaller_script=rcaller_script)
         node_params.update(self.node_params)
         self.rcaller_script = node_params["rcaller_script"]
-        self.command = node_params["pathview_script"]
         return
