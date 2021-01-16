@@ -6,13 +6,7 @@ from .nodePrototypes import nextflowProcess
 from .nodePrototypes import introSpect
 
 chs = introSpect.flowNodes.createChannelSpecification
-
 intro_folder = os.path.dirname(os.path.realpath(introSpect.__file__))
-rerun_preprocessing = True
-
-
-def safe_quote(s):
-    return '"' + s + '"'
 
 
 def meta_parser(sample_meta_file):
