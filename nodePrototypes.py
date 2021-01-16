@@ -7,6 +7,20 @@ import introSpect
 
 nextflowProcess = introSpect.flowNodes.nextflowProcess
 
+generalClusterProfile = """
+profiles {
+    standard {
+        process.executor = 'local'
+    }
+    cluster {
+        process.executor = 'sge'
+        process.penv = 'smp'
+        process.clusterOptions = { '-V -S /bin/bash -q all.q@apollo-*' }
+        process.cpus = 1
+    }
+}
+"""
+
 
 class nextflowCmdProcess(nextflowProcess):
     def directives(self):
