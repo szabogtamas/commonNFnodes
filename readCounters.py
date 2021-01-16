@@ -39,6 +39,6 @@ class countSymbolsWithFeatureCounts(nextflowCmdProcess):
         self.command = "featureCounts -T $manycpu\\\n            "
         self.command += "-a $genomeannotation\\\n            "
         self.command += "-o $count_file\\\n            "
-        self.command += "-g gene_name\\\n            "        
+        self.command += "-g gene_name\\\n            "
         self.command += "${alignedSams.join(' ')}\\\n"
         return None

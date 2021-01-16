@@ -5,8 +5,10 @@ sys.path.append(os.path.dirname(homefolder))
 
 import introSpect
 
+nextflowProcess = introSpect.flowNodes.nextflowProcess
 
-class nextflowCmdProcess(introSpect.flowNodes.nextflowProcess):
+
+class nextflowCmdProcess(nextflowProcess):
     def directives(self):
         return {"label": "'manycpu'"}
 
@@ -32,6 +34,8 @@ class nextflowRscriptProcess(nextflowCmdProcess):
             "Rscript "
             + self.command
             + "\\\n            "
-            + "\\\n            ".join(["" if flag is None else flag for flag in self.flags])
+            + "\\\n            ".join(
+                ["" if flag is None else flag for flag in self.flags]
+            )
             + "\n"
         )
