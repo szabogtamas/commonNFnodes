@@ -210,6 +210,40 @@ class notebookGO(notebookTemplater):
 class notebookGSEA(notebookTemplater):
     "Render Rmd notebooks to facilitate editing of specific figures."
 
+    def channel_specifications(self):
+        return {
+            "gsea_notebook_pars": chs(
+                "tuple",
+                (
+                    "gsea_nb_template",
+                    "gsea_script_path",
+                    "gsea_tabs",
+                    "order_of_conditions",
+                    "gsea_tag",
+                    "gsea_prefix",
+                    "species",
+                    "mcat",
+                    "msubcat",
+                ),
+                (
+                    "gsea_nb_template",
+                    "gsea_script_path",
+                    "gsea_input_tables",
+                    "gsea_condition_order",
+                    None,
+                    None,
+                    "gsea_species",
+                    "gsea_maincat",
+                    "gsea_subcat",
+                ),
+            ),
+            "gsea_notebook": chs(
+                "file",
+                '"${gsea_prefix}${gsea_tag.replace(' + "'\\\"', ''" + ')}.Rmd"',
+                "outFile",
+            ),
+        }
+
     def process(
         self,
         gsea_nb_template,

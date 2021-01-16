@@ -190,6 +190,12 @@ class hitListCreator(nextflowProcess):
                 f.write("\t".join(h))
         return None
 
+    def customize_features(self):
+        node_params = dict(intro_folder=intro_folder)
+        node_params.update(self.node_params)
+        self.intro_folder = node_params["intro_folder"]
+        return
+
 
 class gseaTabCreator(nextflowProcess):
     def dependencies(self):
@@ -236,3 +242,9 @@ class gseaTabCreator(nextflowProcess):
             tbn = tbl.replace(edger_prefix, "").replace(".tsv", "").replace("___", "/")
             gsea_in += tbn + ":" + os.path.abspath(tbl) + ","
         return '"' + gsea_in[:-1] + '"'
+
+    def customize_features(self):
+        node_params = dict(intro_folder=intro_folder)
+        node_params.update(self.node_params)
+        self.intro_folder = node_params["intro_folder"]
+        return
