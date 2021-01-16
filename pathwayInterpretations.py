@@ -3,6 +3,7 @@ from .nodePrototypes import introSpect
 
 chs = introSpect.flowNodes.createChannelSpecification
 rcaller_script = "commandR.r"
+gsea_script = "gsea_ontologies.r"
 
 
 class getDEwithEdgeR(nextflowRscriptProcess):
@@ -385,9 +386,10 @@ class visualisePositionalOverrep(nextflowRscriptProcess):
         }
 
     def customize_features(self):
-        node_params = dict(rcaller_script=rcaller_script)
+        node_params = dict(rcaller_script=rcaller_script, gsea_script=gsea_script)
         node_params.update(self.node_params)
         self.rcaller_script = node_params["rcaller_script"]
+        self.gsea_script = node_params["gsea_script"]
         return
 
 
