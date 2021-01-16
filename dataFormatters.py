@@ -78,7 +78,7 @@ class countMatrixFormatter(nextflowProcess):
             .set_index("Gene name")
             .to_dict()["Gene stable ID"]
         )
-        meta_df = self.meta_parser(sample_meta_file)
+        meta_df = meta_parser(sample_meta_file)
 
         df = pd.read_csv(count_file, sep="\t", skiprows=1)
         df["Geneid2"] = df["Geneid"].apply(
