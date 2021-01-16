@@ -75,8 +75,8 @@ def show_expression_of_KO_genes(
         norm_df = norm_df.set_index(["GeneID", "Symbol"])
         norm_df = norm_df.rank(axis=0, pct=True, numeric_only=True)
         norm_df = norm_df.reset_index()
+    norm_df["Symbol"] = norm_df["Symbol"].apply(lambda x: ko_dict[x] if x in ko_dict else x)
     ko_df = norm_df.loc[norm_df["Symbol"].isin(ko_list), :]
-    ko_df["Symbol"] = ko_df["Symbol"].apply(lambda x: ko_dict[x] if x in ko_dict else x)
     fig, ax = plt.subplots(figsize=(7.2, 3.6))
     if heat:
         ko_df = ko_df.drop(columns=["GeneID"]).set_index(["Symbol"])
