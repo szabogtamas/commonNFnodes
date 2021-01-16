@@ -14,7 +14,7 @@ class downloadPairedSRA(nextflowCmdProcess):
         self.outputs = [
             'tuple "${sample}_1.fastq", "${sample}_2.fastq", sample into insamples'
         ]
-        self.command = "fastq-dump -I --split-files $sample"
+        self.command = "fasterq-dump -I -t ./tmp --split-files $sample"
         return None
 
 
