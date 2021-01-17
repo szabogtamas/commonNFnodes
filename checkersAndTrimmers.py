@@ -14,7 +14,7 @@ class rnaBulkTrimmomaticSE(nextflowCmdProcess):
                 [
                     "Channel",
                     "from([params.raw_fastqs, params.sample_ids].transpose())",
-                    "map{[prams.input_folder + '/' + it[0], it[1]]}",
+                    "map{[params.input_folder + '/' + it[0], it[1]]}",
                     "set{insamples}",
                 ],
             ]
@@ -51,7 +51,7 @@ class rnaBulkTrimmomaticPE(nextflowCmdProcess):
                 [
                     "Channel",
                     "from([params.forward_fastqs, params.reverse_fastqs, params.sample_ids].transpose())",
-                    "map{[prams.input_folder + '/' + it[0], prams.input_folder + '/' + it[1], it[2]]}",
+                    "map{[params.input_folder + '/' + it[0], params.input_folder + '/' + it[1], it[2]]}",
                     "set{insamples}",
                 ],
             ]
@@ -72,7 +72,7 @@ class rnaBulkTrimmomaticPE(nextflowCmdProcess):
             'tuple sample, "${sample}_trim_1.fastq", "${sample}_trim_2.fastq" into trimmed_fastqs'
         ]
         self.command = (
-            "trimmomatic PE ${indir}/${forward} ${indir}/${reverse}\\\n            "
+            "trimmomatic PE $forward $reverse\\\n            "
         )
         self.command += (
             "${sample}_trim_1.fastq ${sample}_forward_unpaired.fastq\\\n            "
