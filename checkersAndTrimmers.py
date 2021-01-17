@@ -29,7 +29,6 @@ class rnaBulkTrimmomaticSE(nextflowCmdProcess):
         self.inputs = [
             "val adapterFileIllumina from params.adapterFileIllumina",
             "val manycpu from params.manycpu",
-            "val indir from params.input_folder",
             "tuple raw, sample from insamples",
         ]
         self.outputs = ['tuple sample, "${sample}_trimed.fastq" into trimmed_fastqs']
@@ -67,7 +66,6 @@ class rnaBulkTrimmomaticPE(nextflowCmdProcess):
         self.inputs = [
             "val adapterFileIllumina from params.adapterFileIllumina",
             "val manycpu from params.manycpu",
-            "val indir from params.input_folder",
             "tuple forward, reverse, sample from insamples",
         ]
         self.outputs = [

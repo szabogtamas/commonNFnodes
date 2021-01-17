@@ -9,7 +9,7 @@ class downloadPairedSRA(nextflowCmdProcess):
 
     def customize_features(self):
         self.inputs = [
-            "tuple sample from params.sample_ids",
+            "val sample from params.sample_ids",
         ]
         self.outputs = [
             'tuple "${sample}_1.fastq", "${sample}_2.fastq", sample into insamples'
@@ -29,7 +29,7 @@ class downloadPairedSRAfast(nextflowCmdProcess):
     def customize_features(self):
         self.inputs = [
             "val manycpu from params.manycpu",
-            "tuple sample from params.sample_ids",
+            "val sample from params.sample_ids",
         ]
         self.outputs = [
             'tuple "${sample}_1.fastq", "${sample}_2.fastq", sample into insamples'
