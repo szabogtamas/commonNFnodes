@@ -71,9 +71,7 @@ class rnaBulkTrimmomaticPE(nextflowCmdProcess):
         self.outputs = [
             'tuple sample, "${sample}_trim_1.fastq", "${sample}_trim_2.fastq" into trimmed_fastqs'
         ]
-        self.command = (
-            "trimmomatic PE $forward $reverse\\\n            "
-        )
+        self.command = "trimmomatic PE $forward $reverse\\\n            "
         self.command += (
             "${sample}_trim_1.fastq ${sample}_forward_unpaired.fastq\\\n            "
         )
