@@ -1,5 +1,7 @@
 from .nodePrototypes import nextflowCmdProcess
 
+genomeindex_parname = "genomeindex"
+
 
 class alignPairedEndReadsWithStar(nextflowCmdProcess):
     "Use STAR to align paired end reads with general settings."
@@ -45,10 +47,15 @@ class alignSingleEndReadsWithBowtie2(nextflowCmdProcess):
     "Use Bowtie2 to align single end reads with general settings."
 
     def customize_features(self):
+        node_params = dict(
+            genomeindex_parname=genomeindex_parname,
+        )
+        node_params.update(self.node_params)
+        self.genomeindex_parname = node_params["genomeindex_parname"]
         self.inputs = [
             "val manycpu from params.manycpu",
-            "val genomedir from params.genomedir",
-            "val genomeindex from params.genomeindex",  # e.g. /data/genomes/hg38/index/bowtie2/ucsc/hg38
+            "val genomeindex from params."
+            + self.genomeindex_parname,  # e.g. /data/genomes/hg38/index/bowtie2/ucsc/hg38
             'tuple sample, "${sample}_trimed.fastq" from trimmed_fastqs',
         ]
         self.outputs = ['file "${sample}_Aligned.out.sam" into aligned']
@@ -64,10 +71,15 @@ class alignSingleEndSmallRNAReadsWithBowtie2(nextflowCmdProcess):
     "Use Bowtie2 to align single end reads with settings optimized for miRNA."
 
     def customize_features(self):
+        node_params = dict(
+            genomeindex_parname=genomeindex_parname,
+        )
+        node_params.update(self.node_params)
+        self.genomeindex_parname = node_params["genomeindex_parname"]
         self.inputs = [
             "val manycpu from params.manycpu",
-            "val genomedir from params.genomedir",
-            "val genomeindex from params.genomeindex",  # e.g. /data/genomes/hg38/index/bowtie2/ucsc/hg38
+            "val genomeindex from params."
+            + self.genomeindex_parname,  # e.g. /data/genomes/hg38/index/bowtie2/ucsc/hg38
             'tuple sample, "${sample}_trimed.fastq" from trimmed_fastqs',
         ]
         self.outputs = ['file "${sample}_Aligned.out.sam" into aligned']
@@ -84,10 +96,15 @@ class alignSingleEndReadsWithBWA(nextflowCmdProcess):
     "Use BWA to align single end reads with general settings."
 
     def customize_features(self):
+        node_params = dict(
+            genomeindex_parname=genomeindex_parname,
+        )
+        node_params.update(self.node_params)
+        self.genomeindex_parname = node_params["genomeindex_parname"]
         self.inputs = [
             "val manycpu from params.manycpu",
-            "val genomedir from params.genomedir",
-            "val genomeindex from params.genomeindex",  # e.g. /data/genomes/hg38/index/bwa/ucsc/hg38.fa
+            "val genomeindex from params."
+            + self.genomeindex_parname,  # e.g. /data/genomes/hg38/index/bwa/ucsc/hg38.fa
             'tuple sample, "${sample}_trimed.fastq" from trimmed_fastqs',
         ]
         self.outputs = ['file "${sample}_Aligned.out.sam" into aligned']
@@ -108,10 +125,15 @@ class alignSingleEndSmallRNAReadsWithBWA(nextflowCmdProcess):
     "Use BWA to align single end reads with settings optimized for miRNA."
 
     def customize_features(self):
+        node_params = dict(
+            genomeindex_parname=genomeindex_parname,
+        )
+        node_params.update(self.node_params)
+        self.genomeindex_parname = node_params["genomeindex_parname"]
         self.inputs = [
             "val manycpu from params.manycpu",
-            "val genomedir from params.genomedir",
-            "val genomeindex from params.genomeindex",  # e.g. /data/genomes/hg38/index/bwa/ucsc/hg38.fa
+            "val genomeindex from params."
+            + self.genomeindex_parname,  # e.g. /data/genomes/hg38/index/bwa/ucsc/hg38.fa
             'tuple sample, "${sample}_trimed.fastq" from trimmed_fastqs',
         ]
         self.outputs = ['file "${sample}_Aligned.out.sam" into aligned']
@@ -133,10 +155,15 @@ class alignSingleEndReadsWithHisat2(nextflowCmdProcess):
     "Use Hisat2 to align single end reads with general settings."
 
     def customize_features(self):
+        node_params = dict(
+            genomeindex_parname=genomeindex_parname,
+        )
+        node_params.update(self.node_params)
+        self.genomeindex_parname = node_params["genomeindex_parname"]
         self.inputs = [
             "val manycpu from params.manycpu",
-            "val genomedir from params.genomedir",
-            "val genomeindex from params.genomeindex",  # e.g. /data/genomes/hg38/index/HiSat2/ucsc/hg38refGene/hg38refGene or indices/hisat/ucsc/hg38_tran/genome_tran
+            "val genomeindex from params."
+            + self.genomeindex_parname,  # e.g. /data/genomes/hg38/index/HiSat2/ucsc/hg38refGene/hg38refGene or indices/hisat/ucsc/hg38_tran/genome_tran
             'tuple sample, "${sample}_trimed.fastq" from trimmed_fastqs',
         ]
         self.outputs = ['file "${sample}_Aligned.out.sam" into aligned']
@@ -152,10 +179,15 @@ class alignSingleEndSmallRNAReadsWithHisat2(nextflowCmdProcess):
     "Use Hisat2 to align single end reads with settings optimized for miRNA."
 
     def customize_features(self):
+        node_params = dict(
+            genomeindex_parname=genomeindex_parname,
+        )
+        node_params.update(self.node_params)
+        self.genomeindex_parname = node_params["genomeindex_parname"]
         self.inputs = [
             "val manycpu from params.manycpu",
-            "val genomedir from params.genomedir",
-            "val genomeindex from params.genomeindex",  # e.g. /data/genomes/hg38/index/bwa/ucsc/hg38.fa
+            "val genomeindex from params."
+            + self.genomeindex_parname,  # e.g. /data/genomes/hg38/index/bwa/ucsc/hg38.fa
             'tuple sample, "${sample}_trimed.fastq" from trimmed_fastqs',
         ]
         self.outputs = ['file "${sample}_Aligned.out.sam" into aligned']
