@@ -14,7 +14,9 @@ class downloadPairedSRA(nextflowCmdProcess):
         self.outputs = [
             'tuple "${sample}_1.fastq", "${sample}_2.fastq", sample into insamples'
         ]
-        self.command = "fastq-dump -I --split-files --disable-multithreading $sample\n            "
+        self.command = (
+            "fastq-dump -I --split-files --disable-multithreading $sample\n            "
+        )
         # self.command = "fastq-dump -I -O ./tmp -X 10000 --split-files --disable-multithreading $sample\n            "
         # self.command += "mv tmp/${sample}_1.fastq ${sample}_1.fastq\n            "
         # self.command += "mv tmp/${sample}_2.fastq ${sample}_2.fastq"
