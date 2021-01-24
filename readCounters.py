@@ -42,3 +42,26 @@ class countSymbolsWithFeatureCounts(nextflowCmdProcess):
         self.command += "-g gene_name\\\n            "
         self.command += "${alignedSams.join(' ')}\\\n"
         return None
+
+
+class countSymbolsWithHTSeqCounts(nextflowCmdProcess):
+    "Count reads with HTSeqCounts, using general settings."
+
+    def directives(self):
+        return {"publishDir": "'../tables', mode: 'copy'", "label": "'manycpu'"}
+
+    def customize_features(self):
+        self.inputs = [
+            "val manycpu from params.manycpu",
+            "val count_file from params.count_file",
+            "val genomeannotation from params.genomeannotation",
+            "file alignedSams from aligned.collect()",
+        ]
+        htseq-count [options] <alignment_files> <gff_file>
+        self.outputs = ["file 'counts.tsv' into count_file"]
+        self.command = "htseq-count\\\n            "
+        self.command += "-o $count_file\\\n            "
+        self.command += "-i gene_name\\\n            "
+        self.command += "${alignedSams.join(' ')}            "
+        self.command += "$genomeannotation\\\n"
+        return None
