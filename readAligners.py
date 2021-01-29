@@ -198,3 +198,52 @@ class alignSingleEndSmallRNAReadsWithHisat2(nextflowCmdProcess):
         self.command += "-S ${sample}_Aligned.out.sam\\\n            "
         self.command += "-p $manycpu\\\n"
         return None
+
+
+class alignSingleEndReadsWithSubreads(nextflowCmdProcess):
+    "Use Subreads to align single end reads with general settings."
+
+    def customize_features(self):
+        node_params = dict(
+            genomeindex_parname=genomeindex_parname,
+        )
+        node_params.update(self.node_params)
+        self.genomeindex_parname = node_params["genomeindex_parname"]
+        self.inputs = [
+            "val manycpu from params.manycpu",
+            "val genomeindex from params."
+            + self.genomeindex_parname,  # e.g. subread-buildindex -o indices/subread/hg38 genomes/GRCh38_primary_assembly.fa
+            'tuple sample, "${sample}_trimed.fastq" from trimmed_fastqs',
+        ]
+        self.outputs = ['file "${sample}_Aligned.out.sam" into aligned']
+        self.command = "subread-align -t 0\\\n            "
+        self.command += "-i $genomeindex\\\n            "
+        self.command += "-r ${sample}_trimed.fastq\\\n            "
+        self.command += "-o ${sample}_Aligned.out.sam\\\n            "
+        self.command += "-T $manycpu\\\n"
+        return None
+
+
+class alignSingleEndSmallRNAReadsWithSubreads(nextflowCmdProcess):
+    "Use Subreads to align single end reads with general settings."
+
+    def customize_features(self):
+        node_params = dict(
+            genomeindex_parname=genomeindex_parname,
+        )
+        node_params.update(self.node_params)
+        self.genomeindex_parname = node_params["genomeindex_parname"]
+        self.inputs = [
+            "val manycpu from params.manycpu",
+            "val genomeindex from params."
+            + self.genomeindex_parname,  # e.g. subread-buildindex -o indices/subread/hg38 genomes/GRCh38_primary_assembly.fa
+            'tuple sample, "${sample}_trimed.fastq" from trimmed_fastqs',
+        ]
+        self.outputs = ['file "${sample}_Aligned.out.sam" into aligned']
+        self.command = "subread-align -t 0\\\n            "
+        self.command += "-i $genomeindex\\\n            "
+        self.command += "-n 35 -m 4 -M 3 -I 0 -P 3 -B 10 --multiMapping\\\n            "
+        self.command += "-r ${sample}_trimed.fastq\\\n            "
+        self.command += "-o ${sample}_Aligned.out.sam\\\n            "
+        self.command += "-T $manycpu\\\n"
+        return None
