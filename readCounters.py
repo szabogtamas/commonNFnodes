@@ -44,7 +44,7 @@ class countSymbolsWithFeatureCounts(nextflowCmdProcess):
         return None
 
 
-class countSymbolsWithHTSeqCounts(nextflowCmdProcess):
+class countWithHTSeqCounts(nextflowCmdProcess):
     "Count reads with HTSeqCounts, using general settings."
 
     def directives(self):
@@ -57,11 +57,35 @@ class countSymbolsWithHTSeqCounts(nextflowCmdProcess):
             "val genomeannotation from params.genomeannotation",
             "file alignedSams from aligned.collect()",
         ]
-        htseq-count [options] <alignment_files> <gff_file>
         self.outputs = ["file 'counts.tsv' into count_file"]
         self.command = "htseq-count\\\n            "
         self.command += "-o $count_file\\\n            "
-        self.command += "-i gene_name\\\n            "
         self.command += "${alignedSams.join(' ')}            "
         self.command += "$genomeannotation\\\n"
+        return None
+
+
+class countWithSalmon(nextflowCmdProcess):
+    "Count reads with Salmon, using general settings."
+
+    def directives(self):
+        return {"publishDir": "'../tables', mode: 'copy'", "label": "'manycpu'"}
+
+    def customize_features(self):
+        self.inputs = [
+            "val manycpu from params.manycpu",
+            "val genomeindex from params.genomeindex" # e.g. /home/szabo/myScratch/SeqmiRNA/indices/salmon
+            'tuple sample, "${sample}_trimed.fastq" from trimmed_fastqs',
+        ]
+            "val manycpu from params.manycpu",
+            "val count_file from params.count_file",
+            "file alignedSams from aligned.collect()",
+        ]
+        htseq-count [options] <alignment_files> <gff_file>
+        self.outputs = ["file 'counts.tsv' into count_file"]
+        self.command = "salmon quant\\\n            "
+        self.command += "-p $manycpu -l A\\\n            "
+        self.command += "--validateMappings\\\n            "
+        self.command += "-r ${sample}_trimed.fastq\\\n            "
+        self.command += "-o $count_file\\\n"
         return None
