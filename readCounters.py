@@ -81,11 +81,35 @@ class countWithSalmon(nextflowCmdProcess):
             "val count_file from params.count_file",
             "file alignedSams from aligned.collect()",
         ]
-        htseq-count [options] <alignment_files> <gff_file>
-        self.outputs = ["file 'counts.tsv' into count_file"]
+        self.outputs = ["file '${alignedSams}_counts.tsv' into count_file"]
         self.command = "salmon quant\\\n            "
         self.command += "-p $manycpu -l A\\\n            "
         self.command += "--validateMappings\\\n            "
-        self.command += "-r ${sample}_trimed.fastq\\\n            "
+        self.command += "-r ${alignedSams.join(' ')}\\\n            "
+        self.command += "-o $count_file\\\n"
+        return None
+
+    
+class countWithSalmonAligned(nextflowCmdProcess):
+    "Count reads with Salmon, using general settings and alignment mode."
+
+    def directives(self):
+        return {"publishDir": "'../tables', mode: 'copy'", "label": "'manycpu'"}
+
+    def customize_features(self):
+        self.inputs = [
+            "val manycpu from params.manycpu",
+            "val genomeindex from params.genomeindex" # e.g. salmon.fa
+            "file alignedSams from aligned.collect()",
+        ]
+            "val manycpu from params.manycpu",
+            "val count_file from params.count_file",
+            "file alignedSams from aligned.collect()",
+        ]
+        self.outputs = ["file 'counts.tsv' into count_file"]
+        self.command = "salmon quant\\\n            "
+        self.command += "-t $genomeindex -l A\\\n            "
+        self.command += "-p $manycpu -l A\\\n            "
+        self.command += "-a ${sample}_trimed.fastq\\\n            "
         self.command += "-o $count_file\\\n"
         return None
