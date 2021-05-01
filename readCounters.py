@@ -1,4 +1,4 @@
-from .nodePrototypes import nextflowCmdProcess
+from nodePrototypes import nextflowCmdProcess
 
 
 class countWithFeatureCounts(nextflowCmdProcess):
@@ -77,10 +77,6 @@ class countWithSalmon(nextflowCmdProcess):
             "val genomeindex from params.genomeindex" # e.g. /home/szabo/myScratch/SeqmiRNA/indices/salmon
             'tuple sample, "${sample}_trimed.fastq" from trimmed_fastqs',
         ]
-            "val manycpu from params.manycpu",
-            "val count_file from params.count_file",
-            "file alignedSams from aligned.collect()",
-        ]
         self.outputs = ["file '${alignedSams}_counts.tsv' into count_file"]
         self.command = "salmon quant\\\n            "
         self.command += "-p $manycpu -l A\\\n            "
@@ -100,10 +96,6 @@ class countWithSalmonAligned(nextflowCmdProcess):
         self.inputs = [
             "val manycpu from params.manycpu",
             "val genomeindex from params.genomeindex" # e.g. salmon.fa
-            "file alignedSams from aligned.collect()",
-        ]
-            "val manycpu from params.manycpu",
-            "val count_file from params.count_file",
             "file alignedSams from aligned.collect()",
         ]
         self.outputs = ["file 'counts.tsv' into count_file"]

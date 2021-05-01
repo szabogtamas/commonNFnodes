@@ -1,4 +1,4 @@
-import os
+import os, sys
 
 __doc__ = """
 Extending the FlowNodes script, this package contains Python objects that can be used as
@@ -7,6 +7,7 @@ to assemble the nodes in Jupyter notebook, to facilitate record keeping.
 """
 
 homefolder = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(homefolder)
 
 for module in os.listdir(homefolder):
     if module == "__init__.py" or module[-3:] != ".py":
