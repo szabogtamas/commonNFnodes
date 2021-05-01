@@ -38,8 +38,9 @@ class nextflowRscriptProcess(nextflowCmdProcess):
         self.cmdouts = dict()
         command = self.command
         deps = self.dependencies()
-        for r_script in deps["inhouse_packages"]:
-            subprocess.call(["cp", r_script, dr + "/bin/" + os.path.basename(r_script)])
+        if "inhouse_packages" in deps:
+            for r_script in deps["inhouse_packages"]:
+                subprocess.call(["cp", r_script, dr + "/bin/" + os.path.basename(r_script)])
         subprocess.call(["cp", command, dr + "/bin/" + os.path.basename(command)])
         self.command = dr + "/bin/" + os.path.basename(command)
 
